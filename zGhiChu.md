@@ -15,3 +15,5 @@
    reset css
    
 6. `npm i react-router-dom`
+
+7. `npm i classnames`
