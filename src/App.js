@@ -9,14 +9,6 @@ function App() {
         <Router>
             <div className="App">
 
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <h1><a href="/">home</a></h1>
-                    <h1><a href='/following'>following</a> </h1>
-                    <h1><a href='/profile'>profile</a></h1>
-                    <h1><a href='/upload'>upload</a></h1>
-                    <h1><a href='/search'>search</a></h1>
-                </div>
-
                 <Routes>
                     {publicRoutes.map((route, i) => {
 
