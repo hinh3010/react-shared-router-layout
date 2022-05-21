@@ -4,8 +4,8 @@ import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCircleQuestion, faCircleXmark,
-    faEarthAsia, faEllipsisVertical, faKeyboard, faMagnifyingGlass,
-    faSpinner, faCloudUpload, faPlus, faUser, faCoins, faGear, faSignOut
+    faEarthAsia, faEllipsisVertical, faKeyboard,
+    faSpinner, faPlus, faUser, faCoins, faGear, faSignOut
 } from '@fortawesome/free-solid-svg-icons';
 
 import Tippy from '@tippyjs/react'
@@ -19,7 +19,8 @@ import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import { Menu as PopperMenu } from '~/components/Popper'
 import { faMessage } from '@fortawesome/free-regular-svg-icons';
-
+import { InboxIcon, MessageIcon, SearchIcon, UploadIcon } from '~/components/Icons';
+import Image from '~/components/Image'
 const cx = classNames.bind(styles);
 
 function Header(props) {
@@ -169,7 +170,7 @@ function Header(props) {
                             placement={searchTippy.position}
                         >
                             <button className={cx('search-btn')}>
-                                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                <SearchIcon />
                             </button>
                         </Tippy>
 
@@ -182,15 +183,19 @@ function Header(props) {
                     {currentUser
                         ? (
                             <>
-                                {/* <Button leftIcon={<FontAwesomeIcon icon={faPlus} />} type='outline'>Upload</Button> */}
                                 <Tippy content='Upload' delay={[0, 200]}>
                                     <button className={cx('action-btn')}>
-                                        <FontAwesomeIcon icon={faCloudUpload} />
+                                        <UploadIcon />
                                     </button>
                                 </Tippy>
                                 <Tippy content="Message" delay={[0, 200]}>
                                     <button className={cx('action-btn')} >
-                                        <FontAwesomeIcon icon={faMessage} />
+                                        <MessageIcon />
+                                    </button>
+                                </Tippy>
+                                <Tippy content="In box" delay={[0, 200]}>
+                                    <button className={cx('action-btn')} >
+                                        <InboxIcon />
                                     </button>
                                 </Tippy>
                             </>
@@ -206,7 +211,7 @@ function Header(props) {
                         {currentUser
                             ? (
                                 // avatar
-                                <img className={cx('user-avatar')}
+                                <Image className={cx('user-avatar')}
                                     src='https://sugababy.xyz/wp-content/uploads/2021/11/dao-le-phuong-hoa-lo-clip-nong-6.jpg'
                                     alt="avatar"
                                 />
