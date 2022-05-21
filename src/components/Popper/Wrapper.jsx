@@ -2,15 +2,14 @@ import React from 'react';
 import classNames from 'classnames/bind';
 
 
-import styles from './Popper.module.scss';
-import images from '~/assets/images'
+import styles from './Wrapper.module.scss';
 
 const cx = classNames.bind(styles);
 
 
-function Wrapper({ children }) {
+function Wrapper({ children, className }) {
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', className)}>
             {children}
         </div>
     );

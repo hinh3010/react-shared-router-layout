@@ -11,7 +11,7 @@
     // Default layout
     --default-layout-header-height: 60px;
     --default-layout-width: 1150px;
-    --default-layout-horizontal-spacer: 24px;
+    --default-layout-horizontal-spacer: 22px;
 }
 
 * {
@@ -30,6 +30,8 @@ body {
     line-height: 1.5;
     text-rendering: optimizespeed;
     color: var(--text-color);
+
+    overflow: overlay;
 }
 
 button,
