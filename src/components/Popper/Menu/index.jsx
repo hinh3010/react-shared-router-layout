@@ -53,7 +53,8 @@ function Menu({ children, items = [], handleChange }) {
         <TippyHeadless
             // visible
             delay={[0, 700]}  // thời gian delay( [lúc xuất hiện , lúc biến mất] )
-            interactive // cho phép click
+            interactive // cho phép click + di chuột
+            offset={[20, 10]} // lệch sang phải 20px và cách dưới 10px vs element cha
             placement='bottom-end' // vị trí hiển thị theo element cha
             render={attrs => (
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs} >
@@ -65,7 +66,7 @@ function Menu({ children, items = [], handleChange }) {
             )}
 
             // khi TippyHeadless bị ẩn đi => set về cấp 1
-            onHide={() => setHistory(prev => prev.slice(0, prev.length - 1))}
+            onHide={() => setHistory((prev) => prev.slice(0, 1))}
         >
             {children}
         </TippyHeadless>

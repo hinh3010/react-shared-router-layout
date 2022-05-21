@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleQuestion, faCircleXmark, faEarthAsia, faEllipsisVertical, faKeyboard, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCircleQuestion, faCircleXmark,
+    faEarthAsia, faEllipsisVertical, faKeyboard, faMagnifyingGlass,
+    faSpinner, faCloudUpload, faPlus, faUser, faCoins, faGear, faSignOut
+} from '@fortawesome/free-solid-svg-icons';
 
 import Tippy from '@tippyjs/react'
 import TippyHeadless from '@tippyjs/react/headless'
@@ -14,10 +18,13 @@ import images from '~/assets/images'
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import { Menu as PopperMenu } from '~/components/Popper'
+import { faMessage } from '@fortawesome/free-regular-svg-icons';
 
 const cx = classNames.bind(styles);
 
 function Header(props) {
+
+    const currentUser = true
 
     const MENU_ITEMS = [
         {
@@ -66,6 +73,31 @@ function Header(props) {
         }
     ]
 
+    const userMenu = [
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'View profile',
+            to: '/@hoaa',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCoins} />,
+            title: 'Get coins',
+            to: '/coin',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faGear} />,
+            title: 'Settings',
+            to: '/settings',
+        },
+        ...MENU_ITEMS,
+        {
+            icon: <FontAwesomeIcon icon={faSignOut} />,
+            title: 'Log out',
+            to: '/logout',
+            separate: true,
+        },
+    ]
+
     const [searchResult, setSearchResult] = useState([]);
     useEffect(() => {
         setTimeout(() => {
@@ -91,8 +123,6 @@ function Header(props) {
                 break;
         }
     }
-
-    const currentUser = false
 
     return (
         <header className={cx('wrapper')}>
@@ -148,26 +178,46 @@ function Header(props) {
 
                 {/* actions */}
                 <div className={cx('actions')}>
-                    {
-                        currentUser
-                            ? (
-                                <></>
-                            ) : (
-                                <>
-                                    <Button type='text'>Upload</Button>
-                                    <Button type='primary' >Login</Button>
 
-                                    <PopperMenu
-                                        items={MENU_ITEMS}
-                                        handleChange={handleMenuChange}
-                                    >
-                                        <button className={cx('more-btn')}>
-                                            <FontAwesomeIcon icon={faEllipsisVertical} />
-                                        </button>
-                                    </PopperMenu>
-                                </>
-                            )
+                    {currentUser
+                        ? (
+                            <>
+                                {/* <Button leftIcon={<FontAwesomeIcon icon={faPlus} />} type='outline'>Upload</Button> */}
+                                <Tippy content='Upload' delay={[0, 200]}>
+                                    <button className={cx('action-btn')}>
+                                        <FontAwesomeIcon icon={faCloudUpload} />
+                                    </button>
+                                </Tippy>
+                                <Tippy content="Message" delay={[0, 200]}>
+                                    <button className={cx('action-btn')} >
+                                        <FontAwesomeIcon icon={faMessage} />
+                                    </button>
+                                </Tippy>
+                            </>
+                        ) : (
+                            <>
+                                <Button leftIcon={<FontAwesomeIcon icon={faPlus} />} type='outline'>Upload</Button>
+                                <Button type='primary' >Login</Button>
+                            </>
+                        )
                     }
+
+                    <PopperMenu items={currentUser ? userMenu : MENU_ITEMS} handleChange={handleMenuChange}>
+                        {currentUser
+                            ? (
+                                // avatar
+                                <img className={cx('user-avatar')}
+                                    src='https://sugababy.xyz/wp-content/uploads/2021/11/dao-le-phuong-hoa-lo-clip-nong-6.jpg'
+                                    alt="avatar"
+                                />
+                            ) : (
+                                <button className={cx('more-btn')}>
+                                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                                </button>
+                            )
+                        }
+                    </PopperMenu>
+
                 </div>
             </div>
         </header>
