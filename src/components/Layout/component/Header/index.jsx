@@ -1,26 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import classNames from 'classnames/bind';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faCircleQuestion, faCircleXmark,
-    faEarthAsia, faEllipsisVertical, faKeyboard,
-    faSpinner, faPlus, faUser, faCoins, faGear, faSignOut
+    faCircleQuestion, faCoins, faEarthAsia, faEllipsisVertical, faGear, faKeyboard, faPlus, faSignOut, faUser
 } from '@fortawesome/free-solid-svg-icons';
-
-import Tippy from '@tippyjs/react'
-import TippyHeadless from '@tippyjs/react/headless'
-import 'tippy.js/dist/tippy.css'
-
-import { Wrapper as PopperWrapper } from '~/components/Popper'
-import styles from './Header.module.scss';
-import images from '~/assets/images'
-import AccountItem from '~/components/AccountItem';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Tippy from '@tippyjs/react';
+import classNames from 'classnames/bind';
+import React, { useEffect, useState } from 'react';
+import 'tippy.js/dist/tippy.css';
+//
+import images from '~/assets/images';
 import Button from '~/components/Button';
-import { Menu as PopperMenu } from '~/components/Popper'
-import { faMessage } from '@fortawesome/free-regular-svg-icons';
-import { InboxIcon, MessageIcon, SearchIcon, UploadIcon } from '~/components/Icons';
-import Image from '~/components/Image'
+import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
+import Image from '~/components/Image';
+import { Menu as PopperMenu } from '~/components/Popper';
+import styles from './Header.module.scss';
+import Search from '~/components/Layout/component/Search';
+
+
+
 const cx = classNames.bind(styles);
 
 function Header(props) {
@@ -99,18 +95,6 @@ function Header(props) {
         },
     ]
 
-    const [searchResult, setSearchResult] = useState([]);
-    useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([]);
-        }, 0)
-    }, []);
-
-    const searchTippy = {
-        title: 'Tìm kiếm',
-        position: 'right'
-    }
-
     const handleMenuChange = (menuItem) => {
         console.log({ menuItem })
         switch (menuItem.type) {
@@ -130,52 +114,10 @@ function Header(props) {
             <div className={cx('inner')}>
 
                 {/* logo */}
-                <img src={images.logo} alt="TikTok" />
+                <a style={{ cursor: 'pointer' }} href='/'><img src={images.logo} alt="TikTok" /></a>
 
                 {/* search */}
-                <TippyHeadless
-                    visible={searchResult.length > 0}
-                    interactive // cho phép click
-                    render={attrs => (
-                        <div
-                            className={cx('search-result')}
-                            tabIndex="-1"
-                            {...attrs}
-                        >
-                            <PopperWrapper>
-                                <h4 className={cx('search-title')}>
-                                    Accounts
-                                </h4>
-                                <AccountItem />
-                                <AccountItem />
-                            </PopperWrapper>
-                        </div>
-                    )}
-                >
-                    <div className={cx('search')}>
-
-                        <input type="text" placeholder="Search here" spellCheck={false} />
-
-                        {/* icon clear */}
-                        <button className={cx('clear')}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-
-                        {/* icon loading */}
-                        <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
-
-                        {/* icon search */}
-                        <Tippy
-                            content={searchTippy.title}
-                            placement={searchTippy.position}
-                        >
-                            <button className={cx('search-btn')}>
-                                <SearchIcon />
-                            </button>
-                        </Tippy>
-
-                    </div>
-                </TippyHeadless>
+                <Search />
 
                 {/* actions */}
                 <div className={cx('actions')}>
