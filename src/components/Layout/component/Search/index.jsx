@@ -5,11 +5,12 @@ import TippyHeadless from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import React, { useEffect, useRef, useState } from 'react';
 import 'tippy.js/dist/tippy.css';
-//
+// file
 import AccountItem from '~/components/AccountItem';
 import { SearchIcon } from '~/components/Icons';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { useDebounce } from '~/hocks';
+import * as searchServices from '~/services/searchServices';
 import styles from './Search.module.scss';
 
 
@@ -45,21 +46,15 @@ function Search(props) {
             return
         };
 
-        setLoading(true);
+        const fetch = async () => {
+            setLoading(true);
+            const result = await searchServices.search(debounceSearchValue, "less")
+            setSearchResult(result)
+            setLoading(false);
+        }
+        fetch()
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounceSearchValue)}&type=less`)
-            .then(res => res.json())
-            .then(res => {
-                setSearchResult(res.data)
-                setLoading(false);
-            })
-            .catch(() => {
-                setLoading(false);
-                alert('Please try again')
-            })
     }, [debounceSearchValue])
-
-
 
     const searchTippy = {
         title: 'Tìm kiếm',
