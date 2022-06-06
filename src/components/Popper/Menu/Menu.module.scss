@@ -5,6 +5,10 @@
     .menu-popper {
         padding-bottom: 8px;
 
+        .menu-body {
+            overflow-y: auto;
+        }
+
         // menu item
         .menu-item {
             margin-left: 0;
@@ -33,6 +37,7 @@
     height: 50px;
     margin-top: -8px;
     font-weight: 400;
+    flex-shrink: 0;
     .back-btn {
         width: 50px;
         height: 100%;

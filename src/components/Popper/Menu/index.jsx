@@ -12,7 +12,7 @@ import Header from './Header';
 
 const cx = classNames.bind(styles);
 
-function Menu({ children, items = [], handleChange }) {
+function Menu({ children, items = [], handleChange, hideOnClick = false }) {
 
     // logic giúp render nhiều cấp items
     const [history, setHistory] = useState([{ data: items }]);
@@ -52,15 +52,16 @@ function Menu({ children, items = [], handleChange }) {
     return (
         <TippyHeadless
             // visible
-            delay={[0, 700]}  // thời gian delay( [lúc xuất hiện , lúc biến mất] )
-            interactive // cho phép click + di chuột
-            offset={[20, 10]} // lệch sang phải 20px và cách dưới 10px vs element cha
-            placement='bottom-end' // vị trí hiển thị theo element cha
+            delay={[0, 500]}        // thời gian delay( [lúc xuất hiện , lúc biến mất] )
+            interactive             // cho phép click + di chuột
+            offset={[20, 10]}       // lệch sang phải 20px và cách dưới 10px vs element cha
+            placement='bottom-end'      // vị trí hiển thị theo element cha
+            hideOnClick={hideOnClick}   // ko ẩn khi click element cha
             render={attrs => (
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs} >
                     <PopperWrapper className={cx('menu-popper')}>
-                        {history.length > 1 && <Header title={'title'} onBack={handleOnBack} />}
-                        {renderItems()}
+                        {history.length > 1 && <Header title={'Language'} onBack={handleOnBack} />}
+                        <div className={cx('menu-body')}>{renderItems()}</div>
                     </PopperWrapper>
                 </div>
             )}

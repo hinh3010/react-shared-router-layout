@@ -8,7 +8,6 @@ const cx = classNames.bind(styles)
 
 function Sidebar(props) {
     const links = [
-        { path: '/', name: 'Home' },
         { path: '/following', name: 'Following' },
         { path: '/upload', name: 'Upload' },
         { path: '/search', name: 'Search' },
@@ -18,9 +17,11 @@ function Sidebar(props) {
 
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 {links.map((link, i) => (
-                    <h1 key={i}><Link to={link.path}>
-                        {link.name}
-                    </Link></h1>
+                    <Link key={i} to={link.path}>
+                        <h3 >
+                            {link.name}
+                        </h3>
+                    </Link>
                 ))}
             </div>
 

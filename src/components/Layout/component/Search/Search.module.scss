@@ -1,11 +1,14 @@
 .search {
+    --border-search: 1.5px;
+
     width: 360px;
     height: var(--search-height);
     background-color: rgba(22, 24, 35, 0.06);
 
     padding-left: 16px;
     border-radius: var(--search-border-radius);
-    border: 1.5px solid transparent;
+    // border: 1.5px solid transparent;
+    border: var(--border-search) solid transparent;
 
     position: relative;
     display: flex;
@@ -20,6 +23,9 @@
         font-weight: 400;
         flex: 1;
         background-color: transparent;
+
+        font-family: var(--font-family);
+        padding-right: calc(var(--search-height) - 2 * var(--border-search));
     }
 
     &::after {

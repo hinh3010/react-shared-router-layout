@@ -4,9 +4,10 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css';
-//
+// file
 import images from '~/assets/images';
 import Button from '~/components/Button';
 import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
@@ -14,6 +15,7 @@ import Image from '~/components/Image';
 import { Menu as PopperMenu } from '~/components/Popper';
 import styles from './Header.module.scss';
 import Search from '~/components/Layout/component/Search';
+import routesConfig from '~/config/routes';
 
 
 
@@ -33,6 +35,7 @@ function Header(props) {
                 data: [
                     { type: 'Language', code: 'en', title: 'English' },
                     { type: 'Language', code: 'vi', title: 'Tiếng Việt' },
+                    /* 
                     // {
                     //     code: 'vi',
                     //     title: 'Tiếng Việt',
@@ -54,6 +57,7 @@ function Header(props) {
                     //         ]
                     //     }
                     // },
+                    */
                 ]
             }
         },
@@ -114,7 +118,9 @@ function Header(props) {
             <div className={cx('inner')}>
 
                 {/* logo */}
-                <a style={{ cursor: 'pointer' }} href='/'><img src={images.logo} alt="TikTok" /></a>
+                <Link to={routesConfig.home} className={cx('logo')}>
+                    <img src={images.logo} alt="TikTok" />
+                </Link>
 
                 {/* search */}
                 <Search />
@@ -167,7 +173,7 @@ function Header(props) {
 
                 </div>
             </div>
-        </header>
+        </header >
     );
 }
 

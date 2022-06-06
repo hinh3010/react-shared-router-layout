@@ -21,6 +21,14 @@ function Search(props) {
 
     // value ô input search
     const [searchValue, setSearchValue] = useState('');
+    const handleChangeSearch = (e) => {
+        const _searchValue = e.target.value
+        if (!_searchValue.startsWith(' ')) {
+            setSearchValue(_searchValue)
+        }
+    }
+
+    // khi clear input
     const inputRef = useRef()
     const handleClearSearch = () => {
         setSearchValue('')
@@ -35,13 +43,13 @@ function Search(props) {
     }
 
     // tránh req liên tục => debounce  searchValue
-    const debounceSearchValue = useDebounce(searchValue, 500)
+    const debounceSearchValue = useDebounce(searchValue.trim(), 500)
 
     // lấy api trả về kết quả tìm kiếm theo ô searchValue khi đã đc debounce
     const [loading, setLoading] = useState(false);
     const [searchResult, setSearchResult] = useState([]);
     useEffect(() => {
-        if (!debounceSearchValue.trim()) {
+        if (!debounceSearchValue) {
             setSearchResult([])
             return
         };
@@ -56,77 +64,92 @@ function Search(props) {
 
     }, [debounceSearchValue])
 
+    //  
+    const handleClickBtn = () => {
+
+    }
+
+    // tippy
     const searchTippy = {
         title: 'Tìm kiếm',
         position: 'right'
     }
 
     return (
-        <TippyHeadless
-            // cần thỏa mản 2 đk : search có api trả về và showResult = true => hiện
-            visible={showResult && searchResult.length > 0}
-            interactive // cho phép click + hover
-            onClickOutside={handleHideResult} // khi click vào bên ngoài thì gọi hàm
-            render={attrs => (
-                <div
-                    className={cx('search-result')}
-                    tabIndex="-1"
-                    {...attrs}
-                >
-                    <PopperWrapper>
-                        <h4 className={cx('search-title')}>
-                            Accounts
-                        </h4>
-                        {
-                            searchResult.map(result => (
-                                <AccountItem
-                                    key={result.id}
-                                    data={result}
-                                />
-                            ))
-                        }
-                    </PopperWrapper>
-                </div>
-            )}
-        >
-            <div className={cx('search')}>
-
-                <input
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    onFocus={() => setShowResult(true)}
-                    ref={inputRef}
-
-                    type="text"
-                    placeholder="Search here"
-                    spellCheck={false}  // tắt bắo chính tả
-                />
-
-                {/* icon clear */}
-                {!!searchValue.trim() && !loading && (
-                    <button
-                        onClick={handleClearSearch}
-                        className={cx('clear')}
+        // thẻ div để fix Lỗi warning của tippy
+        <div>
+            <TippyHeadless
+                // cần thỏa mản 2 đk : search có api trả về và showResult = true => hiện
+                visible={showResult && searchResult.length > 0}
+                interactive // cho phép click + hover
+                onClickOutside={handleHideResult} // khi click vào bên ngoài thì gọi hàm
+                render={attrs => (
+                    <div
+                        className={cx('search-result')}
+                        tabIndex="-1"
+                        {...attrs}
                     >
-                        <FontAwesomeIcon icon={faCircleXmark} />
-                    </button>
+                        <PopperWrapper>
+                            <h4 className={cx('search-title')}>
+                                Accounts
+                            </h4>
+                            <div style={{ maxHeight: '300px', overflow: 'auto' }}>
+                                {
+                                    searchResult.map(result => (
+                                        <AccountItem
+                                            key={result.id}
+                                            data={result}
+                                        />
+                                    ))
+                                }
+                            </div>
+                        </PopperWrapper>
+                    </div>
                 )}
+            >
+                <div className={cx('search')}>
 
-                {/* icon loading */}
-                {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
+                    <input
+                        value={searchValue}
+                        onChange={handleChangeSearch}
+                        onFocus={() => setShowResult(true)}
+                        ref={inputRef}
 
-                {/* icon search */}
-                <Tippy
-                    content={searchTippy.title}
-                    placement={searchTippy.position}
-                >
-                    <button className={cx('search-btn')}>
-                        <SearchIcon />
-                    </button>
-                </Tippy>
+                        type="text"
+                        placeholder="Search here"
+                        spellCheck={false}  // tắt bắo chính tả
+                    />
 
-            </div>
-        </TippyHeadless >
+                    {/* icon clear */}
+                    {!!searchValue.trim() && !loading && (
+                        <button
+                            onClick={handleClearSearch}
+                            className={cx('clear')}
+                        >
+                            <FontAwesomeIcon icon={faCircleXmark} />
+                        </button>
+                    )}
+
+                    {/* icon loading */}
+                    {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
+
+                    {/* icon search */}
+                    <Tippy
+                        content={searchTippy.title}
+                        placement={searchTippy.position}
+                    >
+                        <button
+                            className={cx('search-btn')}
+                            onMouseDown={e => e.preventDefault()}
+                            onClick={handleClickBtn}
+                        >
+                            <SearchIcon />
+                        </button>
+                    </Tippy>
+
+                </div>
+            </TippyHeadless >
+        </div>
     );
 }
 
