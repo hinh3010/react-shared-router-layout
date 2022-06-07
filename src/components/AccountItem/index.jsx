@@ -2,18 +2,17 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 //
 import Image from '~/components/Image';
 import styles from './AccountItem.module.scss';
 
-
-
 const cx = classNames.bind(styles);
 
 function AccountItem({ data }) {
     return (
-        // <div className={cx('wrapper')}>
+        //  <div className={cx('wrapper')}>
         //     <Image className={cx('avatar')} src='https://sugababy.xyz/wp-content/uploads/2021/11/dao-le-phuong-hoa-lo-clip-nong-6.jpg' alt={'Hướng'} />
         //     {/* <img className={cx('avatar')} src='https://sugababy.xyz/wp-content/uploads/2021/11/dao-le-phuong-hoa-lo-clip-nong-6.jpg' alt={'Hướng'} /> */}
         //     <div className={cx('info')}>
@@ -43,5 +42,11 @@ function AccountItem({ data }) {
         </Link>
     );
 }
+
+// propTypes
+AccountItem.propTypes = {
+    data: PropTypes.object.isRequired
+}
+
 
 export default AccountItem;

@@ -100,7 +100,7 @@ function Header(props) {
     ]
 
     const handleMenuChange = (menuItem) => {
-        console.log({ menuItem })
+        // console.log({ menuItem })
         switch (menuItem.type) {
             case 'MenuItem':
                 // 

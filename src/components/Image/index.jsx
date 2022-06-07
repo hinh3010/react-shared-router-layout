@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { forwardRef } from 'react';
-
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+// file
 import images from '~/assets/images'
 import styles from './Image.module.scss';
-import classNames from 'classnames';
 
 // dùng forwardRef và param ref giúp cho thư viện tippy hiểu đc thẻ img qua cpn Image
 const Image = ({
@@ -30,5 +31,14 @@ const Image = ({
     );
 
 }
+
+// prototype
+Image.prototype = {
+    src: PropTypes.string,
+    alt: PropTypes.string,
+    className: PropTypes.string,
+    fallback: PropTypes.string,
+}
+
 
 export default forwardRef(Image);
